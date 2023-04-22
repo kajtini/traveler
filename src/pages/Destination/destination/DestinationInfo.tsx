@@ -1,5 +1,5 @@
-import Rating from "../../components/Rating";
-import { Destination } from "../../types";
+import Rating from "../../../components/Rating";
+import { Destination } from "../../../types";
 
 interface DestinationInfoProps {
   destination: Destination;
@@ -27,7 +27,7 @@ const DestinationInfo = ({ destination }: DestinationInfoProps) => {
           />
         </div>
       </div>
-      <p className="text-slate-400 md:text-lg">
+      <p className="leading-7 text-slate-400 md:text-lg">
         {destination.description} Lorem, ipsum dolor sit amet consectetur
         adipisicing elit. Consectetur placeat architecto maxime aliquam
         veritatis tenetur aspernatur quia voluptatibus ad iure rerum quidem

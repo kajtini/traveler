@@ -1,3 +1,3 @@
-import Destination from "./Destination";
+import Destination from "./destination/Destination";
 
 export default Destination;

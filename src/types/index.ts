@@ -6,3 +6,11 @@ export interface Destination {
   rating: number;
   numRatings: number;
 }
+
+export interface Review {
+  uid: string;
+  content: string;
+  timestamp: { seconds: number; nanoseconds: number };
+  likes: number;
+  id: string;
+}

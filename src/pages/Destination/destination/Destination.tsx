@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useDestination } from "./useDestination";
 import DestinationOverview from "./DestinationOverview";
-import Reviews from "./Reviews";
+import Reviews from "../reviews/Reviews";
 
 const Destination = () => {
   const { id: destinationId } = useParams();
@@ -13,9 +13,9 @@ const Destination = () => {
   if (!destination) return <div>No destination found!</div>;
 
   return (
-    <div className="flex flex-grow flex-col gap-8">
+    <div className="flex flex-grow flex-col gap-8 py-10">
       <DestinationOverview destination={destination} />
-      <Reviews />
+      <Reviews destinationId={destination.id} />
     </div>
   );
 };

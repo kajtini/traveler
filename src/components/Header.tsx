@@ -40,6 +40,7 @@ const Header = () => {
                   to={page.path}
                   style={({ isActive }) => ({
                     color: isActive ? "#6366f1" : "#94a3b8",
+                    fontWeight: isActive ? 700 : 400,
                   })}
                 >
                   {page.title}

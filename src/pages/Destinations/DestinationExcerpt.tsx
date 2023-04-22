@@ -25,7 +25,7 @@ const DestinationExcerpt = ({ destination }: DestinationExcerptProps) => {
             rating={destination.rating}
           />
         </div>
-        <p className="text-slate-400">{destination.description}</p>
+        <p className="self-start text-slate-400">{destination.description}</p>
 
         <Link
           to={`/destinations/${destination.id}`}

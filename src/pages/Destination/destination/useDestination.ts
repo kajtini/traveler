@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
-import { Destination } from "../../types";
+import { Destination } from "../../../types";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "../../firebase/config";
+import { db } from "../../../firebase/config";
 
 export const useDestination = (destinationId: string) => {
   const [destination, setDestination] = useState<Destination | null>(null);
