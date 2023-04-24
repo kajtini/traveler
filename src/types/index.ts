@@ -1,3 +1,10 @@
+export interface User {
+  displayName: string;
+  email: string;
+  uid: string;
+  photoURL: string;
+}
+
 export interface Destination {
   id: string;
   title: string;
@@ -11,6 +18,5 @@ export interface Review {
   uid: string;
   content: string;
   timestamp: { seconds: number; nanoseconds: number };
-  likes: number;
   id: string;
 }

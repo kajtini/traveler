@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
-import { useDestination } from "./useDestination";
-import DestinationOverview from "./DestinationOverview";
-import Reviews from "../reviews/Reviews";
+import { useDestination } from "./destination/useDestination";
+import DestinationOverview from "./destination/DestinationOverview";
+import Reviews from "./reviews/Reviews";
 
 const Destination = () => {
   const { id: destinationId } = useParams();

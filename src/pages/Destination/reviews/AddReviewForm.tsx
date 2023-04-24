@@ -40,7 +40,6 @@ const AddReviewForm = ({ destinationId }: AddReviewFormProps) => {
         uid: user.uid,
         content,
         timestamp: Timestamp.now(),
-        likes: 0,
         id: "",
       };
 

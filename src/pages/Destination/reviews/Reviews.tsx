@@ -12,7 +12,7 @@ const Reviews = ({ destinationId }: ReviewsProps) => {
         <p className="mb-2 text-lg font-bold">See what other people think</p>
         <AddReviewForm destinationId={destinationId} />
       </div>
-      <ReviewsList />
+      <ReviewsList destinationId={destinationId} />
     </div>
   );
 };
