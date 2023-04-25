@@ -20,6 +20,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 import { useEffect, useState } from "react";
+import { useReviewLikes } from "./useReviewLikes";
+import { FaTrash } from "react-icons/fa";
 
 interface ReviewExcerptProps {
   review: Review;
@@ -27,11 +29,14 @@ interface ReviewExcerptProps {
 }
 
 const ReviewExcerpt = ({ review, destinationId }: ReviewExcerptProps) => {
-  const [likes, setLikes] = useState<string[] | null>(null);
+  const likes = useReviewLikes(destinationId, review.id);
 
   const user = useAppSelector(selectUser);
   const reviewCreator = useUser(review.uid);
   const formattedTimestamp = formatTimestamp(review.timestamp);
+
+  const hasUserLiked = likes?.find((uid) => uid === user?.uid);
+  const isUserTheCreator = user?.uid === reviewCreator?.uid;
 
   const addLike = async () => {
     try {
@@ -76,37 +81,27 @@ const ReviewExcerpt = ({ review, destinationId }: ReviewExcerptProps) => {
     }
   };
 
-  const hasUserLiked = likes?.find((uid) => uid === user?.uid);
-
-  useEffect(() => {
-    const fetchLikes = async () => {
-      try {
-        const likesRef = collection(
-          db,
-          "destinations",
-          destinationId,
-          "reviews",
-          review.id,
-          "likes"
-        );
-
-        const unsubscribe = onSnapshot(likesRef, (likesSnapshot) => {
-          const likedUIDs = likesSnapshot.docs.map((doc) => doc.data().uid);
-
-          setLikes(likedUIDs);
-        });
-
-        return () => unsubscribe();
-      } catch (err) {
-        console.error(`Error while fetching likes: ${err}`);
-      }
-    };
-    fetchLikes();
-  }, []);
+  const deleteReview = async () => {
+    try {
+      await deleteDoc(
+        doc(db, "destinations", destinationId, "reviews", review.id)
+      );
+    } catch (err) {
+      console.error(`Error while removing the review: ${err}`);
+    }
+  };
 
   return (
     <li className="rounded-3xl border-t border-slate-700 bg-slate-800 p-6">
       <div className="mb-2 flex items-center gap-3">
+        {isUserTheCreator && (
+          <FaTrash
+            size={20}
+            className="cursor-pointer fill-slate-600 hover:fill-red-400"
+            onClick={deleteReview}
+          />
+        )}
+
         <img
           className="max-h-11 rounded-full"
           alt="user image"
@@ -131,7 +126,7 @@ const ReviewExcerpt = ({ review, destinationId }: ReviewExcerptProps) => {
               onClick={addLike}
             />
           )}
-          <p className="text-sm text-slate-400">{likes?.length}</p>
+          <p className="text-sm text-slate-400">{likes?.length || 0}</p>
         </div>
       </div>
 

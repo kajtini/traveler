@@ -17,7 +17,7 @@ export const useDestination = (destinationId: string) => {
     };
 
     fetchDestination();
-  }, []);
+  }, [destinationId]);
 
   return destination;
 };

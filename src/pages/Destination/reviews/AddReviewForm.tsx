@@ -45,8 +45,6 @@ const AddReviewForm = ({ destinationId }: AddReviewFormProps) => {
 
       const addedReview = await addDoc(reviewsRef, review);
 
-      console.log(destinationId);
-
       await updateDoc(
         doc(db, "destinations", destinationId, "reviews", addedReview.id),
         {

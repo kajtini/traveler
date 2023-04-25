@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 import { Review } from "../../../types";
-import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import {
+  collection,
+  endAt,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  startAt,
+} from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
 export const useReviews = (destinationId: string) => {
@@ -39,7 +47,7 @@ export const useReviews = (destinationId: string) => {
     };
 
     fetchReviews();
-  }, []);
+  }, [destinationId]);
 
   return reviews;
 };
