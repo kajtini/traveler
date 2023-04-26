@@ -1,19 +1,28 @@
 import { useEffect, useState } from "react";
 import { Destination } from "../../types";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
-export const useDestinations = () => {
+export const useDestinations = (filter?: string) => {
   const [destinations, setDestinations] = useState<Destination[] | null>(null);
 
   useEffect(() => {
     const fetchDestinations = async () => {
       try {
         const destinationsRef = collection(db, "destinations");
-        const destinationsSnapshot = await getDocs(destinationsRef);
+        let destinationsQuery = query(destinationsRef);
+
+        if (filter) {
+          destinationsQuery = query(
+            destinationsRef,
+            where("title", "==", filter.toLowerCase())
+          );
+        }
+
+        const destinationsQuerySnapshot = await getDocs(destinationsQuery);
 
         const filteredDestinations: Destination[] =
-          destinationsSnapshot.docs.map((doc) => {
+          destinationsQuerySnapshot.docs.map((doc) => {
             const destinationData = doc.data();
 
             return {
@@ -33,7 +42,7 @@ export const useDestinations = () => {
     };
 
     fetchDestinations();
-  }, []);
+  }, [filter]);
 
   return destinations;
 };

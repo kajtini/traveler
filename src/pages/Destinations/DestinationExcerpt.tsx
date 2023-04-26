@@ -2,6 +2,7 @@ import { RiStarSFill } from "react-icons/ri";
 import { Destination } from "../../types";
 import { Link } from "react-router-dom";
 import Rating from "../../components/Rating";
+import { uppercaseFirstLetter } from "../../utils/uppercaseFirstLetter";
 
 interface DestinationExcerptProps {
   destination: Destination;
@@ -18,7 +19,9 @@ const DestinationExcerpt = ({ destination }: DestinationExcerptProps) => {
 
       <div className="flex flex-grow flex-col items-center  gap-4 bg-slate-800 p-5">
         <div className="flex w-full items-center justify-between">
-          <h3 className="text-3xl font-bold">{destination.title}</h3>
+          <h3 className="text-3xl font-bold">
+            {uppercaseFirstLetter(destination.title)}
+          </h3>
           <Rating
             numRatings={destination.numRatings}
             size="small"

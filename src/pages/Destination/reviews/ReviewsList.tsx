@@ -7,8 +7,10 @@ interface ReviewsListProps {
 }
 
 const ReviewsList = ({ destinationId }: ReviewsListProps) => {
-  const [currentPage, setCurrentPage] = useState(1);
-  const PER_PAGE = 6;
+  // TODO: Allow user to paginate through data
+
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const PER_PAGE = 6;
 
   const reviews = useReviews(destinationId);
 

@@ -5,7 +5,6 @@ export const formatTimestamp = (timestamp: {
   const timestampMs =
     timestamp.seconds * 1000 + timestamp.nanoseconds / 1000000;
 
-  // Returns number of milliseconds passed since Jan 1 1970
   const now = Date.now();
 
   const diffMs = now - timestampMs;
