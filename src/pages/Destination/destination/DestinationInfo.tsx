@@ -1,5 +1,6 @@
 import Rating from "../../../components/Rating";
 import { Destination } from "../../../types";
+import { uppercaseFirstLetter } from "../../../utils/uppercaseFirstLetter";
 
 interface DestinationInfoProps {
   destination: Destination;
@@ -10,7 +11,7 @@ const DestinationInfo = ({ destination }: DestinationInfoProps) => {
     <div>
       <div className="mb-4 flex items-center justify-between">
         <p className="text-4xl font-bold md:text-5xl lg:text-6xl">
-          {destination.title}
+          {uppercaseFirstLetter(destination.title)}
         </p>
         <div className="md:hidden">
           <Rating

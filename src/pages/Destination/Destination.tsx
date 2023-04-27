@@ -13,7 +13,7 @@ const Destination = () => {
   if (!destination) return <div>No destination found!</div>;
 
   return (
-    <div className="flex flex-grow flex-col gap-8 py-10">
+    <div className="flex flex-grow flex-col justify-center gap-8 py-10">
       <DestinationOverview destination={destination} />
       <Reviews destinationId={destination.id} />
     </div>

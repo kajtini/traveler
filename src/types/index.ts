@@ -18,5 +18,12 @@ export interface Review {
   uid: string;
   content: string;
   timestamp: { seconds: number; nanoseconds: number };
+  rating: number;
   id: string;
+}
+
+export interface Rating {
+  id: number;
+  rating: number;
+  isSelected: boolean;
 }

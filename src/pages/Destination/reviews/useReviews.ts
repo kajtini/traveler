@@ -30,10 +30,7 @@ export const useReviews = (destinationId: string) => {
             const reviewData: Review = doc.data() as Review;
 
             return {
-              content: reviewData.content,
-              id: reviewData.id,
-              timestamp: reviewData.timestamp,
-              uid: reviewData.uid,
+              ...reviewData,
             };
           });
 

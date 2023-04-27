@@ -2,10 +2,12 @@ import { useState } from "react";
 import { RxMagnifyingGlass } from "react-icons/rx";
 
 interface SearchDestinationFormProps {
-  setFilter: React.Dispatch<React.SetStateAction<string>>;
+  setSearchFilter: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const SearchDestinationForm = ({ setFilter }: SearchDestinationFormProps) => {
+const SearchDestinationForm = ({
+  setSearchFilter,
+}: SearchDestinationFormProps) => {
   const [search, setSearch] = useState("");
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -13,7 +15,7 @@ const SearchDestinationForm = ({ setFilter }: SearchDestinationFormProps) => {
 
   const handleSearchSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFilter(search);
+    setSearchFilter(search);
   };
 
   return (

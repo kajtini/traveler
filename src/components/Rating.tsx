@@ -15,7 +15,7 @@ const Rating = ({ rating, size, numRatings }: RatingProps) => {
           size === "large" && "text-xl"
         }`}
       >
-        ${rating} <span className="text-slate-400">({numRatings})</span>
+        {rating} <span className="text-slate-400">({numRatings})</span>
       </p>
     </div>
   );

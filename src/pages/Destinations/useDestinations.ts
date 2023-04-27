@@ -1,9 +1,15 @@
 import { useEffect, useState } from "react";
 import { Destination } from "../../types";
-import { collection, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  onSnapshot,
+  query,
+  where,
+} from "firebase/firestore";
 import { db } from "../../firebase/config";
 
-export const useDestinations = (filter?: string) => {
+export const useDestinations = (searchFilter?: string) => {
   const [destinations, setDestinations] = useState<Destination[] | null>(null);
 
   useEffect(() => {
@@ -12,37 +18,37 @@ export const useDestinations = (filter?: string) => {
         const destinationsRef = collection(db, "destinations");
         let destinationsQuery = query(destinationsRef);
 
-        if (filter) {
+        if (searchFilter) {
           destinationsQuery = query(
             destinationsRef,
-            where("title", "==", filter.toLowerCase())
+            where("title", "==", searchFilter.toLowerCase())
           );
         }
 
-        const destinationsQuerySnapshot = await getDocs(destinationsQuery);
+        const unsubscribe = onSnapshot(
+          destinationsQuery,
+          (destinationsSnapshot) => {
+            const filteredDestinations: Destination[] =
+              destinationsSnapshot.docs.map((doc) => {
+                const destinationData = doc.data();
 
-        const filteredDestinations: Destination[] =
-          destinationsQuerySnapshot.docs.map((doc) => {
-            const destinationData = doc.data();
+                return {
+                  ...destinationData,
+                } as Destination;
+              });
 
-            return {
-              id: destinationData.id,
-              title: destinationData.title,
-              description: destinationData.description,
-              imgURL: destinationData.imgURL,
-              rating: destinationData.rating,
-              numRatings: destinationData.numRatings,
-            };
-          });
+            setDestinations(filteredDestinations);
+          }
+        );
 
-        setDestinations(filteredDestinations);
+        return () => unsubscribe();
       } catch (err) {
         console.error(`Error while fetching destinations: ${err}`);
       }
     };
 
     fetchDestinations();
-  }, [filter]);
+  }, [searchFilter]);
 
   return destinations;
 };

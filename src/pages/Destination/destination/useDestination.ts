@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Destination } from "../../../types";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../../firebase/config";
 
 export const useDestination = (destinationId: string) => {
@@ -9,11 +9,14 @@ export const useDestination = (destinationId: string) => {
   useEffect(() => {
     const fetchDestination = async () => {
       const destinationRef = doc(db, "destinations", destinationId);
-      const destinationSnapshot = await getDoc(destinationRef);
 
-      const destinationData = destinationSnapshot.data() as Destination;
+      const unsubscribe = onSnapshot(destinationRef, (destinationSnapshot) => {
+        const destinationData = destinationSnapshot.data();
 
-      setDestination(destinationData);
+        setDestination(destinationData as Destination);
+      });
+
+      return () => unsubscribe();
     };
 
     fetchDestination();

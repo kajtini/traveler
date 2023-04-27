@@ -2,11 +2,11 @@ import DestinationExcerpt from "./DestinationExcerpt";
 import { useDestinations } from "./useDestinations";
 
 interface DestinationsListProps {
-  filter: string;
+  searchFilter: string;
 }
 
-const DestinationsList = ({ filter }: DestinationsListProps) => {
-  const destinations = useDestinations(filter);
+const DestinationsList = ({ searchFilter }: DestinationsListProps) => {
+  const destinations = useDestinations(searchFilter);
 
   return (
     <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
